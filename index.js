@@ -1,8 +1,5 @@
 var config = require('./config.json')
 
-var Mime = require('./mime.js')
-var mime = new Mime(config)
-
 var shortid = require('shortid');
 var express = require('express')
 var helmet = require('helmet')
@@ -11,6 +8,7 @@ var expressValidator = require('express-validator')
 var app = express()
 
 var fs = require('fs')
+var path = require('path')
 
 var mongoose = require('mongoose')
 mongoose.connect(config.mongodb)
@@ -82,7 +80,14 @@ app.post('/upload', upload, function(req, res) {
         }
 
         var id = shortid.generate()
-        var name = id + mime.get(req.file.mimetype)
+        var name
+
+        if (req.file.originalname) {
+          var ext = path.extname(req.file.originalname)
+          name = id + ext
+        } else {
+          name = id
+        }
 
         fileModel.create({
           name: name,

@@ -51,19 +51,6 @@ inquirer.prompt(questions).then((data) => {
     url: data.url,
     port: data.port,
     mongodb: data.mongodb,
-    types: {
-      "application/javascript": "js",
-      "application/json": "json",
-      "application/xml": "xml",
-      "application/zip": "zip",
-      "application/pdf": "pdf",
-      "application/octet-stream": "png",
-      "text/plain": "txt",
-      "text/html": "html",
-      "image/png": "png",
-      "image/jpeg": "jpeg",
-      "image/gif": "gif"
-    },
     baseKey: {
       key: data.baseKey,
       name: data.baseName
